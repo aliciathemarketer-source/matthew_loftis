@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matthew Loftis · Intellabooks Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C4973A;--gold-bright:#DBA840;--gold-pale:#FBF6E8;
+  --gold-dim:rgba(196,151,58,0.11);--gold-border:rgba(196,151,58,0.26);
+  --bg:#FFFFFF;--surface:#FAFAF7;--text:#141210;--muted:#6B6460;--soft:#A09890;--border:rgba(0,0,0,0.07);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);min-height:100vh}
+
+/* NAV */
+.nav-wrap{position:sticky;top:0;background:rgba(255,255,255,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);z-index:20;border-bottom:0.5px solid var(--gold-border)}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;padding:0 1.5rem}
+.nav-inner::-webkit-scrollbar{display:none}
+.tab-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.05em;color:var(--soft);padding:14px 18px;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:1.5px solid transparent;transition:all 0.18s;flex-shrink:0}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:500}
+
+/* HERO */
+.hero{text-align:center;padding:5rem 1.5rem 3rem;max-width:680px;margin:0 auto;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(196,151,58,0.07),transparent 70%)}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);border:0.5px solid var(--gold-border);border-radius:100px;padding:6px 18px;margin-bottom:2rem;background:var(--gold-dim)}
+.hero-badge span{width:5px;height:5px;border-radius:50%;background:var(--gold-bright);animation:pulse 2.5s infinite;display:inline-block}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.1}}
+.hero-title{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(36px,7vw,62px);line-height:1.07;margin-bottom:1.25rem;color:var(--text)}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.9;max-width:500px;margin:0 auto}
+.hero-rule{width:28px;height:1px;background:var(--gold);margin:2.5rem auto;opacity:0.5}
+
+/* LAYOUT */
+.content-wrap{max-width:760px;margin:0 auto;padding:3rem 1.5rem 6rem}
+.section{display:none}.section.active{display:block}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.pg-title{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(26px,5vw,40px);line-height:1.12;color:var(--text);margin-bottom:1.5rem}
+.pg-title em{font-style:italic;color:var(--gold)}
+.prose{font-size:15px;line-height:1.9;color:var(--muted);margin-bottom:1.5rem;font-weight:300}
+.prose strong{color:var(--text);font-weight:500}
+.section-gap{margin-bottom:2.5rem}
+
+/* CARDS */
+.card{background:var(--surface);border:0.5px solid var(--gold-border);border-radius:16px;padding:1.75rem;margin-bottom:1rem;position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:-24px;right:-24px;width:80px;height:80px;background:radial-gradient(circle,rgba(196,151,58,0.07),transparent 70%);pointer-events:none}
+.card .c-eye{font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.card .c-title{font-family:'Playfair Display',serif;font-size:clamp(16px,2.6vw,20px);font-weight:400;color:var(--text);margin-bottom:8px;line-height:1.3}
+.card .c-body{font-size:14px;color:var(--muted);line-height:1.88;font-weight:300}
+.card .c-body strong{color:var(--text);font-weight:500}
+.dark-card{background:linear-gradient(150deg,#111009,#1C190F);border-radius:16px;padding:1.75rem;margin-bottom:1rem}
+.dc-eye{font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:7px}
+.dc-title{font-family:'Playfair Display',serif;font-size:clamp(16px,2.6vw,20px);font-weight:400;color:#F4F0E6;margin-bottom:8px;line-height:1.3}
+.dc-body{font-size:14px;color:rgba(244,240,230,0.58);line-height:1.88;font-weight:300}
+.dc-body strong{color:var(--gold-bright);font-weight:400}
+.accent{border-left:1.5px solid var(--gold);padding:1rem 1.25rem;background:var(--gold-pale);border-radius:0 12px 12px 0;margin-bottom:1rem}
+.accent .a-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.accent .a-body{font-size:13px;color:var(--muted);line-height:1.8;font-weight:300}
+
+/* THREE OFFERINGS */
+.offerings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.75rem}
+@media(max-width:600px){.offerings-grid{grid-template-columns:1fr}}
+.offering{background:var(--surface);border:0.5px solid var(--gold-border);border-radius:16px;padding:1.5rem;text-align:center;transition:border-color 0.18s,transform 0.15s}
+.offering:hover{border-color:var(--gold);transform:translateY(-2px)}
+.offering.featured{background:linear-gradient(150deg,#111009,#1C190F);border-color:var(--gold)}
+.off-icon{font-size:24px;margin-bottom:10px}
+.off-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:400;color:var(--text);margin-bottom:6px}
+.offering.featured .off-name{color:#F4F0E6}
+.off-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
+.offering.featured .off-desc{color:rgba(244,240,230,0.5)}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;margin-bottom:1.75rem}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:1.25rem;position:relative;padding-bottom:1.5rem}
+.tl-item::before{content:'';position:absolute;left:42px;top:24px;bottom:0;width:0.5px;background:var(--gold-border)}
+.tl-item:last-child::before{display:none}
+.tl-left{text-align:center;padding-top:2px}
+.tl-dot{width:14px;height:14px;border-radius:50%;background:var(--gold);margin:0 auto 6px;border:2px solid var(--bg);box-shadow:0 0 0 1.5px var(--gold)}
+.tl-date{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);line-height:1.4}
+.tl-right{background:var(--surface);border:0.5px solid var(--gold-border);border-radius:14px;padding:1.25rem 1.4rem}
+.tl-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px}
+.tl-body{font-size:12.5px;color:var(--muted);line-height:1.75;font-weight:300}
+.tl-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tl-tag{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:0.5px solid var(--gold-border);border-radius:100px;padding:2px 9px}
+
+/* CAMPAIGN CARDS */
+.campaign-block{margin-bottom:2rem}
+.cb-header{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.cb-num{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);font-weight:400;line-height:1;min-width:36px}
+.cb-info{}
+.cb-eye{font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.cb-title{font-family:'Playfair Display',serif;font-size:clamp(16px,2.6vw,20px);color:var(--text);font-weight:400}
+.email-seq{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem}
+.email-item{background:var(--surface);border:0.5px solid var(--gold-border);border-radius:12px;padding:1.2rem 1.4rem;display:grid;grid-template-columns:44px 1fr;gap:1rem;align-items:start}
+.ei-num{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:400;line-height:1.2}
+.ei-type{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.ei-subject{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.ei-body{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
+.channel-tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-top:6px;margin-right:4px}
+.ch-email{background:rgba(196,151,58,0.1);color:var(--gold);border:0.5px solid var(--gold-border)}
+.ch-sms{background:rgba(0,0,0,0.04);color:var(--text);border:0.5px solid var(--border)}
+.ch-social{background:rgba(100,120,200,0.08);color:#5060A0;border:0.5px solid rgba(100,120,200,0.2)}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:8px;margin-bottom:1.75rem}
+.cl-section-title{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin:1.25rem 0 8px;padding-bottom:6px;border-bottom:0.5px solid var(--gold-border)}
+.cl-item{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;background:var(--surface);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.1rem;transition:border-color 0.18s}
+.cl-item:hover{border-color:var(--gold-border)}
+.cl-box{width:18px;height:18px;border:1.5px solid var(--gold-border);border-radius:4px;margin-top:1px;flex-shrink:0;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center}
+.cl-box.checked{background:var(--gold);border-color:var(--gold)}
+.cl-box.checked::after{content:'✓';font-size:11px;color:#fff;font-weight:600}
+.cl-text{}
+.cl-label{font-size:13px;font-weight:400;color:var(--text);margin-bottom:2px}
+.cl-note{font-size:11.5px;color:var(--muted);line-height:1.6;font-weight:300}
+
+/* INTERVIEW QS */
+.q-block{margin-bottom:1.75rem}
+.q-category{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);padding:8px 14px;background:var(--gold-dim);border:0.5px solid var(--gold-border);border-radius:100px;display:inline-block;margin-bottom:1rem}
+.q-list{display:flex;flex-direction:column;gap:8px}
+.q-item{background:var(--surface);border:0.5px solid var(--gold-border);border-radius:12px;padding:1.2rem 1.4rem}
+.q-num{font-family:'Playfair Display',serif;font-size:13px;color:var(--gold);font-weight:400;margin-bottom:4px}
+.q-text{font-size:13.5px;color:var(--text);font-weight:400;line-height:1.6;margin-bottom:4px}
+.q-why{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.6;font-style:italic}
+
+/* NEWSLETTER TOPICS */
+.nl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.75rem}
+@media(max-width:560px){.nl-grid{grid-template-columns:1fr}}
+.nl-item{background:var(--surface);border:0.5px solid var(--gold-border);border-radius:14px;padding:1.3rem}
+.nl-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);font-weight:400;line-height:1;margin-bottom:6px}
+.nl-series{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.nl-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;line-height:1.4}
+.nl-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
+.nl-cross{font-size:10px;font-weight:500;color:var(--gold);margin-top:6px}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;font-size:13px;font-weight:500;padding:13px 28px;border-radius:100px;border:none;cursor:pointer;text-decoration:none;transition:background 0.18s,transform 0.12s;letter-spacing:0.02em}
+.btn-primary:hover{background:var(--gold-bright);transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span></span>Intellabooks · Client Portal · 2026</div>
+  <h1 class="hero-title">Welcome, <em>Matthew.</em><br>Let's build something great.</h1>
+  <p class="hero-sub">Your Intellabooks system is being built around you — your story, your three businesses, and 500 people who are waiting to understand just how well you have them covered.</p>
+  <div class="hero-rule"></div>
+  <p style="font-size:12px;color:var(--soft);font-weight:300;letter-spacing:0.04em">Prepared by Intellabooks · Fort Worth, TX · 2026</p>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <nav class="nav-inner">
+    <button class="tab-btn active" onclick="show('welcome',this)">Welcome</button>
+    <button class="tab-btn" onclick="show('strategy',this)">Your Strategy</button>
+    <button class="tab-btn" onclick="show('campaigns',this)">Campaign Breakdown</button>
+    <button class="tab-btn" onclick="show('checklist',this)">Setup Checklist</button>
+    <button class="tab-btn" onclick="show('interview',this)">Interview Questions</button>
+    <button class="tab-btn" onclick="show('newsletters',this)">Newsletter Topics</button>
+  </nav>
+</div>
+
+<div class="content-wrap">
+
+  <!-- TAB 1: WELCOME -->
+  <div id="welcome" class="section active">
+    <div class="eyebrow">Your Intellabooks Portal</div>
+    <h2 class="pg-title">Three businesses.<br>One story. <em>Infinite reach.</em></h2>
+    <p class="prose">Matthew, you're not just selling products — you're offering people <strong>peace of mind from every direction</strong>. Legal protection, health coverage, life security. Most people don't even realize they can have all three through someone they trust. That's the opportunity. That's what we're going to communicate — beautifully, consistently, and in your voice.</p>
+
+    <div class="dark-card">
+      <div class="dc-eye">The Positioning</div>
+      <div class="dc-title">"You're in safe hands with Matthew."</div>
+      <div class="dc-body">Every campaign, every email, every text carries the same feeling: <strong>Matthew sees you, Matthew has you covered, and Matthew knows people who can help with everything else.</strong> Legal protection. Health insurance. Life insurance. His network. All of it — one relationship.</div>
+    </div>
+
+    <div class="offerings-grid">
+      <div class="offering">
+        <div class="off-icon">⚖️</div>
+        <div class="off-name">LegalShield</div>
+        <div class="off-desc">$30–$100/mo. Legal protection for individuals and small businesses — contracts, compliance, consultations, and more.</div>
+      </div>
+      <div class="offering featured">
+        <div class="off-icon">🏥</div>
+        <div class="off-name">Health Insurance</div>
+        <div class="off-desc">Comprehensive health coverage. Paired with LegalShield, it's total life protection — body and business covered.</div>
+      </div>
+      <div class="offering">
+        <div class="off-icon">🛡️</div>
+        <div class="off-name">Life Insurance</div>
+        <div class="off-desc">Securing your family's future. The conversation nobody wants to have — until they have to. Matthew makes it easy.</div>
+      </div>
+    </div>
+
+    <div class="accent">
+      <div class="a-title">What this portal is for</div>
+      <div class="a-body">This page walks you through your complete campaign strategy, what we need from you to get started, the questions we'll go through on your discovery Zoom call, and the newsletter roadmap for the next three months. Bookmark it. We'll update it as your system grows.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-eye">Your Contact Base</div>
+      <div class="c-title">~500 contacts. One conversation to start them all.</div>
+      <div class="c-body">These are people who already trust you. They don't need convincing — they need reminding. Our job is to <strong>reintroduce you at scale</strong>, let them understand everything you offer, and make it natural for them to say yes to more.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-eye">Your Growth Path</div>
+      <div class="c-title">Core today. Marketing tier in 90 days.</div>
+      <div class="c-body">We're starting with the Core plan — email, SMS, CRM, and your welcome series. As your campaigns launch and contacts engage, we'll move you to the Marketing tier where we build your website, run your social automation, and launch lookalike ad campaigns built from your best clients.</div>
+    </div>
+  </div>
+
+  <!-- TAB 2: YOUR STRATEGY -->
+  <div id="strategy" class="section">
+    <div class="eyebrow">3-Month Game Plan</div>
+    <h2 class="pg-title">Month by month.<br><em>Step by step.</em></h2>
+    <p class="prose">Everything is sequenced intentionally. We educate before we cross-sell. We build relationship before we build revenue. Here's how the next 90 days unfold.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot"></div>
+          <div class="tl-date">Month 1<br>Weeks 1–4</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-title">Foundation: Your Story + System Setup</div>
+          <div class="tl-body">Discovery Zoom call with Matthew. Import 500 contacts and tag them by service (LegalShield / Health / Life / Untagged). Launch the Welcome Series — 3 emails introducing Matthew personally, then LegalShield, then insurance. First "Sally" text check-ins begin. GHL and Twilio fully configured.</div>
+          <div class="tl-tags"><span class="tl-tag">Welcome Series</span><span class="tl-tag">CRM Setup</span><span class="tl-tag">SMS Launch</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot"></div>
+          <div class="tl-date">Month 2<br>Weeks 5–8</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-title">Nurture: Education + Cross-Sell Begins</div>
+          <div class="tl-body">LegalShield members receive emails about what their plan really covers. Insurance clients receive health/life benefit education. First cross-sell message goes out — gentle, value-led, no pressure. Business spotlight #1 launches. Bi-weekly email + bi-weekly SMS cadence now running. Fort Worth local content integrated.</div>
+          <div class="tl-tags"><span class="tl-tag">Nurture Campaigns</span><span class="tl-tag">Cross-Sell</span><span class="tl-tag">Business Spotlight</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot"></div>
+          <div class="tl-date">Month 3<br>Weeks 9–12</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-title">Optimize: Win-Back + Upgrade to Marketing Tier</div>
+          <div class="tl-body">Win-back sequences activate for unengaged contacts. Canceled customer holiday/relationship track begins. Social media integration and ad audiences built from converted contacts. Matthew's website launches (Marketing tier). First lookalike campaign goes live. Reporting review and Q2 plan presented.</div>
+          <div class="tl-tags"><span class="tl-tag">Win-Back</span><span class="tl-tag">Social Ads</span><span class="tl-tag">Marketing Tier</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dc-eye">Cadence Philosophy</div>
+      <div class="dc-title">Bi-weekly email. Bi-weekly text. Alternating. Never spammy.</div>
+      <div class="dc-body">Week 1: Email. Week 2: Text from Sally. Week 3: Email. Week 4: Text. That's the rhythm. <strong>Four touchpoints a month</strong> — two emails, two texts — enough to stay top of mind without wearing out the welcome. As engagement grows, we optimize based on open and response data.</div>
+    </div>
+
+    <div class="accent">
+      <div class="a-title">The Sally Text Formula</div>
+      <div class="a-body">"Hi [First Name], it's Sally — Matthew's assistant at Intellabooks. Just checking in! If you need anything from Matthew, he's always a call away. Hope your week is going well. 😊" Simple, warm, no ask. Relationship first.</div>
+    </div>
+  </div>
+
+  <!-- TAB 3: CAMPAIGN BREAKDOWN -->
+  <div id="campaigns" class="section">
+    <div class="eyebrow">Campaign Details</div>
+    <h2 class="pg-title">Every campaign.<br><em>Every touchpoint.</em></h2>
+    <p class="prose">Three campaign tracks. Each one designed to move people closer to full coverage — legally, physically, and financially. Here's exactly what goes out, when, and why.</p>
+
+    <!-- WELCOME SERIES -->
+    <div class="campaign-block">
+      <div class="cb-header">
+        <div class="cb-num">01</div>
+        <div class="cb-info">
+          <div class="cb-eye">Welcome Series · Weeks 1–3</div>
+          <div class="cb-title">Introduce Matthew. Build the relationship before the pitch.</div>
+        </div>
+      </div>
+      <div class="email-seq">
+        <div class="email-item">
+          <div class="ei-num">E1</div>
+          <div>
+            <div class="ei-type">Email · Week 1</div>
+            <div class="ei-subject">Subject: "Before I tell you what I sell — let me tell you who I am."</div>
+            <div class="ei-body">Matthew's personal story. Fort Worth roots. Family. The moment he decided to build something that protected people. Photos included. No products mentioned. Pure relationship. Ends with: "Over the next few weeks, I want to show you what I've built for you — and why I built it."</div>
+            <span class="channel-tag ch-email">Email</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">T1</div>
+          <div>
+            <div class="ei-type">SMS · Week 2</div>
+            <div class="ei-subject">"Hi [First Name], it's Sally — Matthew's assistant. He just sent you something personal. Hope you got a chance to read it! Matthew is always here if you need him. 😊"</div>
+            <div class="ei-body">Warm follow-up text. Reinforces the email without repeating it. No links, no asks.</div>
+            <span class="channel-tag ch-sms">SMS</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">E2</div>
+          <div>
+            <div class="ei-type">Email · Week 3</div>
+            <div class="ei-subject">Subject: "What LegalShield actually does for you — and what most people miss."</div>
+            <div class="ei-body">Deep-dive on LegalShield benefits. What the $30–$100/mo really covers. Common situations where it saves people. Small business angle. Ends with: "Do you have health coverage too? Next week I want to share something about that." Cross-sell seed planted — not executed yet.</div>
+            <span class="channel-tag ch-email">Email</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">E3</div>
+          <div>
+            <div class="ei-type">Email · Week 5</div>
+            <div class="ei-subject">Subject: "The coverage most people don't have — and don't know they're missing."</div>
+            <div class="ei-body">Health and life insurance overview. Real scenarios — what happens when something unexpected hits and you're not covered. Gentle first cross-sell: "If you're a LegalShield member, we should talk about what's next." No pressure CTA, just curiosity and care.</div>
+            <span class="channel-tag ch-email">Email</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NURTURE CAMPAIGNS -->
+    <div class="campaign-block">
+      <div class="cb-header">
+        <div class="cb-num">02</div>
+        <div class="cb-info">
+          <div class="cb-eye">Nurture Campaigns · Months 2–3</div>
+          <div class="cb-title">Educate. Cross-sell. Spotlight his network. Stay relevant locally.</div>
+        </div>
+      </div>
+      <div class="email-seq">
+        <div class="email-item">
+          <div class="ei-num">N1</div>
+          <div>
+            <div class="ei-type">Email · LegalShield Track</div>
+            <div class="ei-subject">"Protecting Your Business from the Legal Traps Nobody Warns You About"</div>
+            <div class="ei-body">For small business owners on LegalShield. Contract risks, compliance issues, employee situations. Subtle intro to liability insurance. Cross-sell: "Your LegalShield protects you legally. But what about physically and financially?"</div>
+            <span class="channel-tag ch-email">Email</span><span class="channel-tag ch-sms">Cross-Sell</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">N2</div>
+          <div>
+            <div class="ei-type">Email · Insurance Track</div>
+            <div class="ei-subject">"Navigating Medical Bills: What Your Health Plan Covers (and What Legal Backup Looks Like)"</div>
+            <div class="ei-body">For insurance clients. Medical billing disputes, claims denials, estate considerations. Natural bridge to LegalShield. Cross-sell: "Did you know for less than a Netflix subscription, LegalShield can handle the legal side of your healthcare disputes?"</div>
+            <span class="channel-tag ch-email">Email</span><span class="channel-tag ch-sms">Cross-Sell</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">N3</div>
+          <div>
+            <div class="ei-type">Email · All Contacts</div>
+            <div class="ei-subject">"What's happening in Fort Worth this month — and what it means for your coverage"</div>
+            <div class="ei-body">Local Fort Worth news — small business ordinances, healthcare changes in Texas, community events in specific zip codes. Keeps Matthew relevant locally and shows he's plugged into their world, not just selling.</div>
+            <span class="channel-tag ch-email">Email</span><span class="channel-tag ch-social">Local</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">N4</div>
+          <div>
+            <div class="ei-type">Email · Business Spotlight (Every 3rd Email)</div>
+            <div class="ei-subject">"Spotlight: [Partner Name] — Trusted by Matthew, serving Fort Worth"</div>
+            <div class="ei-body">Feature a trusted business in Matthew's network — realtor, CPA, plumber, contractor. Short profile, what they do, why Matthew vouches for them. Positions Matthew as a connector and community builder. Matthew earns referral goodwill and potential revenue.</div>
+            <span class="channel-tag ch-email">Email</span><span class="channel-tag ch-social">Referral</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIN-BACK CAMPAIGNS -->
+    <div class="campaign-block">
+      <div class="cb-header">
+        <div class="cb-num">03</div>
+        <div class="cb-info">
+          <div class="cb-eye">Win-Back Campaigns · Month 3+</div>
+          <div class="cb-title">Two tracks: unengaged subscribers and canceled customers.</div>
+        </div>
+      </div>
+      <div class="email-seq">
+        <div class="email-item">
+          <div class="ei-num">W1</div>
+          <div>
+            <div class="ei-type">Email · Unengaged Track (No Opens in 60 Days)</div>
+            <div class="ei-subject">"Matthew wanted me to check on you personally."</div>
+            <div class="ei-body">From Sally. Reduced frequency — one email every 3 weeks. More emotional, less informational. Short, warm, no product pitch. Subject line experiments with curiosity gaps. If still no engagement after 3 messages, move to quarterly-only.</div>
+            <span class="channel-tag ch-email">Email</span><span class="channel-tag ch-sms">SMS</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">W2</div>
+          <div>
+            <div class="ei-type">Email · Canceled Customer Track</div>
+            <div class="ei-subject">"Merry Christmas from Matthew & the family 🎄"</div>
+            <div class="ei-body">Non-salesy seasonal touchpoints — Christmas, New Year, Thanksgiving, Fourth of July. Beautiful template with Matthew's family photo. Footer always shows all three services quietly. No CTA to buy — just relationship maintenance. "If you ever need us, we're here."</div>
+            <span class="channel-tag ch-email">Email</span><span class="channel-tag ch-sms">Seasonal</span>
+          </div>
+        </div>
+        <div class="email-item">
+          <div class="ei-num">W3</div>
+          <div>
+            <div class="ei-type">SMS · All Win-Back Tracks</div>
+            <div class="ei-subject">"Hi [First Name], it's Sally — just wanted to wish you a happy [holiday] from Matthew and the team! No agenda, just care. 😊"</div>
+            <div class="ei-body">Holiday and milestone texts. Birthdays if captured. Completely relationship-focused. Keeps the door open without pushing it.</div>
+            <span class="channel-tag ch-sms">SMS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accent">
+      <div class="a-title">The Email Template Standard</div>
+      <div class="a-body">Every email Matthew sends has the same footer: three small icons — ⚖️ LegalShield · 🏥 Health Insurance · 🛡️ Life Insurance — each linked to the relevant page. People always see all three. They click what interests them. The cross-sell happens without feeling like a cross-sell.</div>
+    </div>
+  </div>
+
+  <!-- TAB 4: SETUP CHECKLIST -->
+  <div id="checklist" class="section">
+    <div class="eyebrow">What We Need From You</div>
+    <h2 class="pg-title">Your setup.<br><em>Our responsibility.</em></h2>
+    <p class="prose">This is everything we need to build your system. Some of it is technical, some of it is personal. Check items off as you complete them — we can't launch until the checklist is done, but we can start building the moment you start sharing.</p>
+
+    <!-- BUSINESS INFO -->
+    <div class="cl-section-title">Business & Technical Setup</div>
+    <div class="checklist">
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Business EIN (Employer Identification Number)</div>
+          <div class="cl-note">Required for Twilio phone number registration and GoHighLevel business verification.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Business phone number preference</div>
+          <div class="cl-note">We'll register a dedicated number for Sally's texts through Twilio. Let us know area code preference (Fort Worth: 817).</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Contact list export — all 500 contacts</div>
+          <div class="cl-note">CSV format preferred. Include: first name, last name, email, phone, and which service they currently have (LegalShield / Health / Life / None).</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">LegalShield agent ID / referral link</div>
+          <div class="cl-note">So we can link directly to your plan signup in emails and on your future website.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Insurance carrier + license number</div>
+          <div class="cl-note">For compliance disclosures in emails and SMS. Required for sending insurance-related marketing in Texas.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Social media handles (Facebook, Instagram, LinkedIn)</div>
+          <div class="cl-note">We'll link to these in email footers and build your social automation in Month 3.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT & PERSONAL -->
+    <div class="cl-section-title">Content & Personal Materials</div>
+    <div class="checklist">
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Professional headshot (or a great personal photo)</div>
+          <div class="cl-note">Used in your welcome email, email footer, and future website. It should feel warm, not stiff.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">1–3 family photos you're comfortable sharing</div>
+          <div class="cl-note">The welcome email is about Matthew the person. Family photos make it real and build connection faster than any marketing copy.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Zoom discovery call scheduled (30–45 min)</div>
+          <div class="cl-note">We'll record it with your permission. Transcript goes into our content builder for your welcome series and newsletters. Book at: <a href="https://api.leadconnectorhq.com/widget/booking/P6FHWHDyEHEqxuHDDArd" target="_blank" style="color:var(--gold);text-decoration:none">intellabooks.ai/book</a></div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">2–3 client testimonials or success stories</div>
+          <div class="cl-note">Any time a client said "Matthew saved us" or "I didn't know I needed this" — that's gold for the nurture campaigns.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Your referral network list (businesses you recommend)</div>
+          <div class="cl-note">Realtors, CPAs, plumbers, contractors — anyone you'd feature in the Business Spotlight email series. Name + what they do + their contact info.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPROVALS -->
+    <div class="cl-section-title">Approvals & Agreements</div>
+    <div class="checklist">
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Intellabooks service agreement signed</div>
+          <div class="cl-note">Your contract will be sent to your email via GoHighLevel. Review, sign digitally, and it's done.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Consent to record discovery Zoom call</div>
+          <div class="cl-note">A quick verbal "yes, I consent to recording" at the start of the call is all we need.</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="cl-text">
+          <div class="cl-label">Approval of first email draft before send</div>
+          <div class="cl-note">We'll write Email 1 and share it with you before it goes to a single contact. Your voice, your approval, always.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dark-card" style="margin-top:1.5rem">
+      <div class="dc-eye">Questions?</div>
+      <div class="dc-title">We're one call or text away.</div>
+      <div class="dc-body">Call or text <a href="tel:2147613091" style="color:var(--gold-bright);text-decoration:none">214-761-3091</a> · Email <a href="mailto:support@intellabooks.ai" style="color:var(--gold-bright);text-decoration:none">support@intellabooks.ai</a></div>
+    </div>
+  </div>
+
+  <!-- TAB 5: INTERVIEW QUESTIONS -->
+  <div id="interview" class="section">
+    <div class="eyebrow">Discovery Zoom Call</div>
+    <h2 class="pg-title">Questions that build<br><em>content that converts.</em></h2>
+    <p class="prose">This call is recorded with your permission and the transcript feeds directly into your welcome series, newsletter content, and campaign copy. Every answer Matthew gives becomes part of the story we tell his 500 contacts. Don't prepare too much — authenticity is the whole point.</p>
+
+    <!-- PERSONAL -->
+    <div class="q-block">
+      <span class="q-category">Personal & Family Background</span>
+      <div class="q-list">
+        <div class="q-item">
+          <div class="q-num">Q1</div>
+          <div class="q-text">Where did you grow up in Fort Worth, and what was life like there for you?</div>
+          <div class="q-why">Used in Welcome Email 1. Grounds Matthew in a place his clients know.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q2</div>
+          <div class="q-text">Tell me about your family — who are the people that shaped who you are?</div>
+          <div class="q-why">Photos + story make the welcome email feel personal, not promotional.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q3</div>
+          <div class="q-text">What's one moment from your childhood or high school years that you still think about — that shows who you are today?</div>
+          <div class="q-why">The "origin moment" is the most shareable, memorable part of any personal brand story.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q4</div>
+          <div class="q-text">What value did your family instill in you that you bring to every client relationship?</div>
+          <div class="q-why">Connects his background directly to his business philosophy. Bridges personal → professional naturally.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSINESS -->
+    <div class="q-block">
+      <span class="q-category">His Business & Process</span>
+      <div class="q-list">
+        <div class="q-item">
+          <div class="q-num">Q5</div>
+          <div class="q-text">Why LegalShield specifically? What made you choose this over other opportunities?</div>
+          <div class="q-why">His "why" is the most persuasive thing in any cross-sell message.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q6</div>
+          <div class="q-text">Tell me about a client you helped this year where you could really see the difference you made.</div>
+          <div class="q-why">Becomes the case study / testimonial narrative in nurture campaigns.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q7</div>
+          <div class="q-text">What do you wish more people understood about LegalShield before they signed up?</div>
+          <div class="q-why">Used in the "What Most People Miss About LegalShield" nurture email.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q8</div>
+          <div class="q-text">What makes working with you different from calling a 1-800 insurance number or searching online?</div>
+          <div class="q-why">This is the differentiator copy — goes in every email header and on his future website.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CROSS-SELL -->
+    <div class="q-block">
+      <span class="q-category">Cross-Sell Insights</span>
+      <div class="q-list">
+        <div class="q-item">
+          <div class="q-num">Q9</div>
+          <div class="q-text">When a LegalShield client finds out you also do health and life insurance — what's their most common reaction?</div>
+          <div class="q-why">Real reactions = real copy. This becomes the hook for the cross-sell email subject lines.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q10</div>
+          <div class="q-text">What situation do you see most often where someone has one service and really should have another?</div>
+          <div class="q-why">The most practical cross-sell story. Goes in the nurture campaigns as an "if this is you" scenario.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q11</div>
+          <div class="q-text">If you could get every LegalShield member to do one thing tomorrow, what would it be?</div>
+          <div class="q-why">Becomes the call-to-action for the LegalShield → Insurance cross-sell campaign.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q12</div>
+          <div class="q-text">How do health insurance and life insurance work differently, and when does someone need both?</div>
+          <div class="q-why">Educational content for the "complete coverage" nurture email. In plain language, in Matthew's voice.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NETWORK -->
+    <div class="q-block">
+      <span class="q-category">His Network & Community</span>
+      <div class="q-list">
+        <div class="q-item">
+          <div class="q-num">Q13</div>
+          <div class="q-text">Who are 3–5 people in your network you trust enough to put your name behind?</div>
+          <div class="q-why">These become the first Business Spotlight features. Matthew's referral revenue starts here.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q14</div>
+          <div class="q-text">What's going on in Fort Worth right now that affects the people you serve?</div>
+          <div class="q-why">Local content hook for the bi-monthly Fort Worth news email. Shows Matthew is dialed into their city, not just their inbox.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q15</div>
+          <div class="q-text">What do you want your 500 contacts to feel every time they see your name in their inbox?</div>
+          <div class="q-why">The answer to this question becomes the guiding creative brief for every single campaign we build.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accent">
+      <div class="a-title">After the Call</div>
+      <div class="a-body">We run the transcript through our content builder. Within 5 business days you'll have a draft of Welcome Email 1 in your inbox for review. Your voice. Your story. Ready to send to 500 people who already trust you.</div>
+    </div>
+  </div>
+
+  <!-- TAB 6: NEWSLETTER TOPICS -->
+  <div id="newsletters" class="section">
+    <div class="eyebrow">3-Month Content Calendar</div>
+    <h2 class="pg-title">12 newsletters.<br><em>One unfolding story.</em></h2>
+    <p class="prose">Every newsletter has a job. Some educate. Some cross-sell. Some spotlight his network. Some just show up and say "we care about Fort Worth and we care about you." Here's the full roadmap — in order.</p>
+
+    <div class="nl-grid">
+      <div class="nl-item">
+        <div class="nl-num">01</div>
+        <div class="nl-series">Welcome · Week 1</div>
+        <div class="nl-title">Before I Tell You What I Sell — Let Me Tell You Who I Am</div>
+        <div class="nl-desc">Matthew's personal story. Fort Worth. Family. The moment he decided to build something that protected people. No products. Just him.</div>
+        <div class="nl-cross">Series: Welcome</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">02</div>
+        <div class="nl-series">Education · Week 3</div>
+        <div class="nl-title">What LegalShield Actually Does — And What Most Members Don't Know</div>
+        <div class="nl-desc">Deep-dive on plan benefits. Small business protections. Common situations where LegalShield saves the day. Cross-sell seed: "Do you have health coverage too?"</div>
+        <div class="nl-cross">Cross-sell seed → Insurance</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">03</div>
+        <div class="nl-series">Education · Week 5</div>
+        <div class="nl-title">The Coverage Gap: What Health and Life Insurance Actually Protect</div>
+        <div class="nl-desc">Real scenarios. What happens when someone isn't covered. Gentle first cross-sell to LegalShield members.</div>
+        <div class="nl-cross">Cross-sell → Health + Life</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">04</div>
+        <div class="nl-series">Local · Week 6</div>
+        <div class="nl-title">What's Happening in Fort Worth — And What It Means for Your Coverage</div>
+        <div class="nl-desc">Local business news, Texas healthcare updates, Fort Worth community events by zip code. Matthew as a locally connected advisor, not just a salesperson.</div>
+        <div class="nl-cross">Series: Local Relevance</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">05</div>
+        <div class="nl-series">Cross-Sell · Week 7</div>
+        <div class="nl-title">Protecting Your Business from Legal Traps Nobody Warns You About</div>
+        <div class="nl-desc">For small business LegalShield members. Contracts, compliance, liability. Natural bridge to business insurance.</div>
+        <div class="nl-cross">Cross-sell → Insurance</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">06</div>
+        <div class="nl-series">Spotlight · Week 8</div>
+        <div class="nl-title">Business Spotlight: [Partner Name] — Trusted by Matthew, Serving Fort Worth</div>
+        <div class="nl-desc">Matthew's first referral spotlight. Short profile, what they do, why he vouches for them. Builds community. Earns referral goodwill.</div>
+        <div class="nl-cross">Series: Business Spotlight</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">07</div>
+        <div class="nl-series">Cross-Sell · Week 9</div>
+        <div class="nl-title">Navigating Medical Bills: Legal Tips and Health Coverage Realities</div>
+        <div class="nl-desc">For insurance clients. Billing disputes, claims denials, estate situations. Natural bridge to LegalShield. "For less than a Netflix subscription…"</div>
+        <div class="nl-cross">Cross-sell → LegalShield</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">08</div>
+        <div class="nl-series">Story · Week 10</div>
+        <div class="nl-title">Securing Your Family's Future: Estate Planning and Life Insurance Basics</div>
+        <div class="nl-desc">The conversation nobody wants to have — told gently, with Matthew's family perspective. Real stakes, real peace of mind.</div>
+        <div class="nl-cross">Series: Life Insurance Education</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">09</div>
+        <div class="nl-series">Testimonial · Week 11</div>
+        <div class="nl-title">A Client Story: How Matthew Helped Us Get Covered — And Get Protected</div>
+        <div class="nl-desc">Real case study showing the value of multiple services. With permission. Shows the full picture of what Matthew can do for one family or business.</div>
+        <div class="nl-cross">Cross-sell: All Three</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">10</div>
+        <div class="nl-series">Local · Week 12</div>
+        <div class="nl-title">Tax Season in Fort Worth: What Matthew's Network Can Do for You</div>
+        <div class="nl-desc">Tax season spotlight — features a CPA or tax professional in Matthew's network. Seasonal relevance + referral. Shows he's thinking about them year-round.</div>
+        <div class="nl-cross">Referral + Local</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">11</div>
+        <div class="nl-series">Re-Engage · Month 3</div>
+        <div class="nl-title">You've Been Quiet — Matthew Wanted to Check In</div>
+        <div class="nl-desc">Win-back email for unengaged contacts. Warm, personal, from Sally. Short. No product pitch. Just care. Reduced send frequency from here.</div>
+        <div class="nl-cross">Series: Win-Back</div>
+      </div>
+      <div class="nl-item">
+        <div class="nl-num">12</div>
+        <div class="nl-series">Relationship · Ongoing</div>
+        <div class="nl-title">Happy [Holiday] from Matthew & the Family 🎄</div>
+        <div class="nl-desc">Seasonal template for canceled customers and inactive contacts. Beautiful layout. Family photo. Footer lists all three services quietly. Pure relationship — no ask.</div>
+        <div class="nl-cross">Series: Seasonal / Evergreen</div>
+      </div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dc-eye">The Full Picture</div>
+      <div class="dc-title">Every email has Matthew's three services in the footer. Always.</div>
+      <div class="dc-body">⚖️ LegalShield &nbsp;·&nbsp; 🏥 Health Insurance &nbsp;·&nbsp; 🛡️ Life Insurance<br><br>Whether someone reads one line or the whole email, they see what Matthew offers. The cross-sell happens passively, every time, <strong>without ever feeling like a sales email</strong>.</div>
+    </div>
+
+    <div class="accent">
+      <div class="a-title">Ready to start building?</div>
+      <div class="a-body">Complete your setup checklist, book your discovery Zoom call, and we'll have your first email drafted within 5 business days. Call or text <a href="tel:2147613091" style="color:var(--gold);text-decoration:none;font-weight:500">214-761-3091</a> or email <a href="mailto:support@intellabooks.ai" style="color:var(--gold);text-decoration:none;font-weight:500">support@intellabooks.ai</a></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
